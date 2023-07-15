@@ -14,28 +14,28 @@ refs.catSelect.addEventListener(`change`, getSelectCat);
 
 
 function startLoad() {
-    showSpinner();
-    fetchBreeds().then(renderListCat).catch(handError);
+    refs.textLoader.hidden = false;
+    fetchBreeds().then(renderSelectCat).catch(handError);
 }
 
 function getSelectCat(e) {
     refs.catInfo.innerHTML = ``;
-    showSpinner();
+    refs.textLoader.hidden = false;
     const idSelectCat = e.currentTarget.value;
     fetchCatByBreed(idSelectCat).then(renderCat).catch(handError);
     
 }
 
 
-function renderListCat(data) {
-        hideSpinner();
+function renderSelectCat(data) {
+        refs.textLoader.hidden = true;
         refs.catSelect.innerHTML = getMarkBreeds(data);
         refs.catSelect.hidden = false;   
 }
 
 function renderCat(data) {
         refs.catInfo.innerHTML = getMarkCat(data);
-        hideSpinner();
+        refs.textLoader.hidden = true;
 }
 
 function getMarkCat(data) {
@@ -54,19 +54,9 @@ function getMarkBreeds(data) {
 }
 
 function handError() {
-    Notify.failure("На жаль, сталася помилка");
-    hideSpinner();
-}
-
-
-function showSpinner() {
-    refs.textLoader.hidden = false;
-}
-
-function hideSpinner() {
     refs.textLoader.hidden = true;
+    Notify.failure("На жаль, сталася помилка");
 }
-
 
 
 
