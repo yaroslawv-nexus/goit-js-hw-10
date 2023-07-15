@@ -53,8 +53,9 @@ function getMarkBreeds(data) {
    }).join(``);
 }
 
-function handError() {
+function handError(error) {
     Notify.failure("На жаль, сталася помилка");
+    console.log(error);
     hideSpinner();
 }
 
